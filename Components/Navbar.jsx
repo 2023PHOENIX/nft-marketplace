@@ -6,6 +6,8 @@ import Link from "next/link";
 
 // some assets are required from the app
 import logo from "../assets/logo.png";
+import menu from "../assets/menu.png";
+import cross from "../assets/cross.png";
 import Button from "./Button";
 
 const MenuItems = ({ isMobile, active, setActive }) => {
@@ -45,32 +47,34 @@ const MenuItems = ({ isMobile, active, setActive }) => {
     </ul>
   );
 };
-const ButtonGroup = ({setActive,router}) => {
+const ButtonGroup = ({ setActive, router }) => {
   const hasConnected = true; // connection with metamask
 
-
-  return hasConnected ? <Button btnName="Create" classStyles="mx-2 rounded-xl"
-    handleClick={
-      () => {
-        setActive('')
-        router.push('/create-nft');
-      }
-    }
-  /> : <Button btnName="Connect" classStyles="mx-2 rounded-xl"
+  return hasConnected ? (
+    <Button
+      btnName="Create"
+      classStyles="mx-2 rounded-xl"
+      handleClick={() => {
+        setActive("");
+        router.push("/create-nft");
+      }}
+    />
+  ) : (
+    <Button
+      btnName="Connect"
+      classStyles="mx-2 rounded-xl"
       handleClick={() => {
         console.log("send to connecting wallet");
-    }}
+      }}
     />
-
-
-}
+  );
+};
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const [active, setActive] = useState("Explore NFTs");
-
+  const [isOpen, setIsOpen] = useState(true);
 
   const router = useRouter();
-
 
   console.log({ theme });
   return (
@@ -151,10 +155,46 @@ const Navbar = () => {
         </div>
       </div>
 
-
       {/* FOR SMALL DEVICES MOBILE NAVIGATION */}
-          
+      <div className="hidden md:flex ml-2">
+        {!isOpen ? (
+          <Image
+            src={menu}
+            objectFit="contain"
+            width={25}
+            height={25}
+            alt="menu"
+            onClick={() => setIsOpen(!isOpen)}
+            className={theme === "light" ? "filter invert" : undefined}
+          />
+        ) : (
+          <Image
+            src={cross}
+            objectFit="contain"
+            width={20}
+            height={20}
+            alt="close"
+            onClick={() => setIsOpen(!isOpen)}
+            className={theme === "light" ? "filter invert" : undefined}
+          />
+        )}
 
+        {isOpen && (
+          <div className="fixed inset-0 top-65 dark:bg-nft-dark bg-white z-10 nav-h flex justify-between flex-col">
+            <div className="flex-1 p-4">
+              <MenuItems
+                active={active}
+                setActive={setActive}
+                isMobile
+                setIsOpen={setIsOpen}
+              />
+            </div>
+            <div className="p-4 border-t dark:border-nft-black-1 border-nft-gray-1">
+              <ButtonGroup setActive={setActive} router={router} />
+            </div>
+          </div>
+        )}
+      </div>
     </nav>
   );
 };
