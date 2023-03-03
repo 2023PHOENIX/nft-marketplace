@@ -141,16 +141,20 @@ const Navbar = () => {
             <div className="w-3 h-3 absolute bg-white rounded-full ball" />
           </label>
         </div>
-      </div>
-      {/* FOR MENU ITEMS only for large devices */}
-      <div className="md:hidden flex">
-        <MenuItems active={active} setActive={setActive} isMobile={false} />
-        
+        {/* FOR MENU ITEMS only for large devices */}
+        <div className="md:hidden flex">
+          <MenuItems active={active} setActive={setActive} isMobile={false} />
 
-        <div className="ml-4">
-          <ButtonGroup setActive={setActive} router={ router} />
+          <div className="ml-4">
+            <ButtonGroup setActive={setActive} router={router} />
+          </div>
         </div>
       </div>
+
+
+      {/* FOR SMALL DEVICES MOBILE NAVIGATION */}
+          
+
     </nav>
   );
 };
