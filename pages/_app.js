@@ -9,8 +9,10 @@ export default function App({ Component, pageProps }) {
   return (
     <ThemeProvider attribute="class">
       <div className="dark:bg-nft-dark bg-white min-h-screen">
-        <Navbar />
-        <Component {...pageProps} />
+          <Navbar />
+        <div className="pt-65">
+          <Component {...pageProps} />
+        </div>
         <Footer />
       </div>
 
