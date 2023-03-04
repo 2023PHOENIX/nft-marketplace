@@ -2,7 +2,7 @@ import Banner from "../Components/Banner.jsx";
 
 export default function Home() {
   return (
-    <div className="flex justify-center sm:px-4 p-12 mx-24">
+    <div className="flex justify-center sm:px-4 p-12 xl:mx-24">
       <div className="w-full minwd:w-4/5">
         <Banner
           textContent="Buy and Sell NFTs from all over the world"
