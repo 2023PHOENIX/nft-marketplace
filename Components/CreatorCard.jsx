@@ -51,6 +51,8 @@ const CreatorCard = ({ data, creatorImage, creatorName, creatorEths }) => {
           <span className=""font-normal>ETH</span>
         </p>
       </div>
+
+      
     </div>
   );
 };
