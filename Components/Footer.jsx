@@ -25,6 +25,8 @@ const Footer = () => {
       </div>
     );
   };
+
+
   return (
     <footer
       className="flexCenter flex-col border-t dark:border-nft-black-1

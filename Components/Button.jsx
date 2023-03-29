@@ -12,6 +12,6 @@ const Button = ({ classStyles, btnName,handleClick }) => {
       {btnName}
     </button>
   );
-};
+}
 
 export default Button;
