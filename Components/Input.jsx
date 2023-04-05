@@ -1,5 +1,9 @@
+import { NFTContext } from "../context/NFTContext";
+import { useContext } from "react";
 
 export default function Input({ inputType, title, placeholder, handleClick }) {
+
+  const {NFTCurrency} = useContext(NFTContext);
 
 
   return (

@@ -26,7 +26,7 @@ contract NFTMarketplace is ERC721URIStorage {
     uint256 listingPrice = 0.025 ether;
 
     // declaring the owner of the contract
-    // owner earns a commision on every item sol  
+    // owner earns a commision on every item sold
     address payable owner; 
 
     // keeping up with all the items that have been created

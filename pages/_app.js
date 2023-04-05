@@ -5,8 +5,14 @@ import Navbar from "../Components/Navbar.jsx";
 import Footer from "../Components/Footer.jsx";
 import "../styles/globals.css";
 
+
+import {NFTContextProvider} from "../context/NFTContext.js";
+
+
 export default function App({ Component, pageProps }) {
   return (
+    <NFTContextProvider>
+
     <ThemeProvider attribute="class">
       <div className="dark:bg-nft-dark bg-white min-h-screen">
           <Navbar />
@@ -22,5 +28,6 @@ export default function App({ Component, pageProps }) {
         crossorigin="anonymous"
       ></Script>
     </ThemeProvider>
+    </NFTContextProvider>
   );
 }

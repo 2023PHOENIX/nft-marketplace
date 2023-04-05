@@ -1,6 +1,6 @@
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,6 +9,7 @@ import logo from "../assets/logo.png";
 import menu from "../assets/menu.png";
 import cross from "../assets/cross.png";
 import Button from "./Button";
+import { NFTContext } from "../context/NFTContext";
 
 const MenuItems = ({ isMobile, active, setActive }) => {
   const GenerateLinks = (i) => {
@@ -20,6 +21,9 @@ const MenuItems = ({ isMobile, active, setActive }) => {
       return "/";
     }
   };
+
+
+
 
   return (
     <ul
@@ -48,9 +52,10 @@ const MenuItems = ({ isMobile, active, setActive }) => {
   );
 };
 const ButtonGroup = ({ setActive, router }) => {
-  const hasConnected = true; // connection with metamask
+  const { connectWallet, currentAccount } = useContext(NFTContext);
 
-  return hasConnected ? (
+  
+  return currentAccount ? (
     <Button
       btnName="Create"
       classStyles="mx-2 rounded-xl"
@@ -61,11 +66,9 @@ const ButtonGroup = ({ setActive, router }) => {
     />
   ) : (
     <Button
-      btnName="Connect"
-      classStyles="mx-2 rounded-xl"
-      handleClick={() => {
-        console.log("send to connecting wallet");
-      }}
+        btnName="Connect"
+        classStyles="mx-2 rounded-xl"
+        handleClick={connectWallet}
     />
   );
 };
