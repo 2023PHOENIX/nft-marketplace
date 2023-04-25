@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 
 import { useState, useMemo, useCallback, useContext } from "react";
@@ -8,19 +7,26 @@ import { useRouter } from "next/router";
 import { useDropzone } from "react-dropzone";
 
 import Image from "next/image";
-
+import { create as ipfsHttpClient } from "ipfs-http-client";
 import { useTheme } from "next-themes";
 
 import Input from "../Components/Input.jsx"
 
 import img from "../assets";
 
-import Button from "../Components/Input";
+import Button from "../Components/Button.jsx";
+import { NFTContext } from "../context/NFTContext.js";
 
-const createNFT = () => {
+
+
+
+const CreateNFT = () => {
   const { theme } = useTheme("dark");
+  
+  const { uploadToIPFS ,createNFT} = useContext(NFTContext);
+  const router = useRouter();
 
-  const [fileUrl, setFileURL] = useState(null);
+  const [fileUrl, setFileURL] = useState(null); 
   const [formInput, updateFormInput] = useState({
     price: "",
     name: "",
@@ -32,13 +38,33 @@ const createNFT = () => {
   
     */
 
-  const createMarket = () => {
-    console.log("this is from create-nft [createMarketPlace]");
+  const createMarket = async () => {
+     const {name,description,price} = formInput;
+    if(!name || !description || !price)return;
 
-  }
+    const data = JSON.stringify({name,description,image : fileUrl});
 
-  const onDrop = useCallback(() => {
+    console.log(fileUrl);
+  //  try {
+  //    await Moralis.start({
+  //      apiKey:
+  //        "CFezxB1fa3APUHA57GL3XWlUV7beZl8VuP6SPyoi7pHiWHUYNlOB2isiQTZWvdbh",
+  //    });
+
+  //   //  const response = await Moralis.EvmApi.ipfs.uploadFolder({abi : data});
+
+  //    console.log(response.raw);
+  //  } catch (e) {
+  //    console.error(e);
+  //  }
+  };
+  
+  const onDrop = useCallback(async(acceptedFile) => {
     // upload image to the ipfs
+    console.log("this is file", { acceptedFile });
+    await uploadToIPFS(acceptedFile[0],setFileURL);
+
+    console.log(fileUrl);
   }, []);
   // NOTE: need to look into this part
   const {
@@ -144,10 +170,15 @@ const createNFT = () => {
             updateFormInput({ ...formInput, price: e.target.value })
           }
         />
-        <p> Please make the button here </p>
+          <div className="mt-7 w-full flex justify-end">
+          <Button btnName="Create Item"
+            btnType="primary"
+            classStyles="rounded-xl"
+            handleClick={() => createNFT(formInput,fileUrl,router)}/>  
+        </div>
          </div>
     </div>
   );
 };
 
-export default createNFT;
+export default CreateNFT;
